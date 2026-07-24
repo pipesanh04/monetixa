@@ -1,8 +1,8 @@
 {
   "name": "monetixa",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
-  "description": "Monetixa — buyback institucional de tokens",
+  "description": "Monetixa \u2014 buyback institucional de tokens",
   "author": "Monetixa <gladiusfinance.org@gmail.com>",
   "homepage": "https://github.com/monetixa/monetixa",
   "main": "electron/main.cjs",

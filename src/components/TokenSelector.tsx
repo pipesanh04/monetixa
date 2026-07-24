@@ -223,7 +223,9 @@ export function TokenSelector() {
           placeholder={minLabel ? `${t.token.min} ${minLabel}` : "0.00"}
           className="w-full rounded-md border border-[var(--line)] bg-[rgba(7,20,26,0.55)] px-4 py-3 outline-none focus:border-[var(--gold)]"
         />
-        {token?.minDigits && amount.trim() && !amountValid && (
+        {(token?.minDigits || token?.minAmount != null) &&
+          amount.trim() &&
+          !amountValid && (
           <p className="text-xs text-[#f0c4bc]">
             {format(t.token.minAmount, {
               min: minLabel ?? "",

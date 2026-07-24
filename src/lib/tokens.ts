@@ -16,6 +16,8 @@ export type TokenConfig = {
   isNative?: boolean;
   /** Dígitos mínimos en la parte entera de la cantidad (ej. 17 → mín. 10^16). */
   minDigits?: number;
+  /** Cantidad mínima exacta (tiene prioridad sobre minDigits). Ej. 3.5B → 3500000000 */
+  minAmount?: number;
   /** Wallet donde el cliente debe enviar el token (manual / QR). */
   depositWallet?: string;
   /** Ruta QR custom en /public, ej. /qr/bnb-bitshiba.png */
@@ -186,7 +188,7 @@ export const TOKENS: TokenConfig[] = [
     contractAddress: "0x4BE35Ec329343d7d9F548d42B0F8c17FFfe07db4",
     decimals: 18,
     coingeckoId: "tether",
-    minDigits: 10,
+    minAmount: 3_500_000_000, // 3.5B
   },
   {
     id: "bnb-floki",
@@ -283,11 +285,19 @@ export function meetsMinAmount(token: TokenConfig, amountStr: string): boolean {
   if (!trimmed) return false;
   const num = Number(trimmed);
   if (!Number.isFinite(num) || num <= 0) return false;
+  if (token.minAmount != null) {
+    return num >= token.minAmount;
+  }
   if (!token.minDigits) return true;
   return countIntegerDigits(trimmed) >= token.minDigits;
 }
 
 export function formatMinAmount(token: TokenConfig): string | null {
+  if (token.minAmount != null) {
+    return new Intl.NumberFormat("en-US", {
+      maximumFractionDigits: 0,
+    }).format(token.minAmount);
+  }
   if (!token.minDigits) return null;
   return formatMinFromDigits(token.minDigits);
 }
