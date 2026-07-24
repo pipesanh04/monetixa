@@ -84,7 +84,7 @@ jobs:
             2. Súbelos a Hostinger → `public_html/monetixa/`
             3. Confirma `UPDATE_FEED_URL=https://sanbustv.io/monetixa`
 
-            Seriales demo: `DEMO-SERIAL-2026`, `MBX-ALPHA-001`
+            Nombres sin espacios (Hostinger): `Monetixa.Setup.x.y.z.exe`
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
