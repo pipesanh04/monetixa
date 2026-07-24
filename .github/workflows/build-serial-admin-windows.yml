@@ -1,0 +1,90 @@
+# Build Monetixa Serial Admin for Windows.
+# Publishes to GitHub Releases (no Actions artifacts — avoids storage quota).
+#
+# Manual: Actions → Build Serial Admin Windows → Run workflow
+name: Build Serial Admin Windows
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "serial-v*"
+
+concurrency:
+  group: build-serial-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Serial Admin Windows x64
+    runs-on: windows-latest
+    timeout-minutes: 45
+
+    defaults:
+      run:
+        working-directory: serial-admin
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: serial-admin/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Windows (NSIS + portable)
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: npm run dist:win:nsis
+
+      - name: List release files
+        shell: bash
+        run: ls -lah release/ || true
+
+      - name: Publish GitHub Release (tag serial-v*)
+        if: startsWith(github.ref, 'refs/tags/serial-v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Serial Admin ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          fail_on_unmatched_files: false
+          files: |
+            serial-admin/release/*.exe
+            serial-admin/release/*.blockmap
+          body: |
+            ## Monetixa Serial Admin (Windows)
+            - **MonetixaSerialAdmin Setup …exe** — instalador NSIS
+            - **MonetixaSerialAdmin-….exe** — portable
+
+            Usa el mismo `SERIAL_SECRET` que Monetixa.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish CI prerelease (manual run)
+        if: github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: serial-admin-windows-ci
+          name: Serial Admin Windows CI
+          draft: false
+          prerelease: true
+          fail_on_unmatched_files: false
+          files: |
+            serial-admin/release/*.exe
+            serial-admin/release/*.blockmap
+          body: |
+            Build manual de Serial Admin para Windows.
+            Descarga el `.exe` desde Assets.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

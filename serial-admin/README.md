@@ -36,7 +36,24 @@ npm install
 npm run dist:linux
 ```
 
-El AppImage queda en `serial-admin/release/`.
+El AppImage / `start-linux.sh` queda en `serial-admin/release/`.
+
+```bash
+cd release && ./start-linux.sh
+```
+
+## Ejecutable Windows
+
+```bash
+cd serial-admin
+npm install
+npm run dist:win:portable   # desde Linux (portable)
+# o en GitHub Actions: Build Serial Admin Windows → Run workflow
+```
+
+Artefacto local: `serial-admin/release/MonetixaSerialAdmin-0.1.0.exe`
+
+En GitHub: Release prerelease `serial-admin-windows-ci` (NSIS + portable).
 
 ## Cómo se conecta con Monetixa
 

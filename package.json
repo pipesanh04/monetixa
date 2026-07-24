@@ -23,6 +23,7 @@
     "dist:all": "npm run build && electron-builder --linux AppImage dir --win nsis portable --mac dmg zip --publish never && node scripts/pack-linux.cjs",
     "serial:admin": "npm --prefix serial-admin start",
     "serial:dist": "npm --prefix serial-admin run dist:linux",
+    "serial:dist:win": "npm --prefix serial-admin run dist:win",
     "updates:prepare": "node scripts/prepare-update-feed.cjs",
     "updates:serve": "node scripts/serve-updates.cjs"
   },
