@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSessionSerial } from "@/lib/auth";
 import { BanksStrip } from "@/components/BanksStrip";
 import { PriceTicker } from "@/components/PriceTicker";
+import { RetainedTokens } from "@/components/RetainedTokens";
 import { BuybackWizard } from "@/components/BuybackWizard";
 import {
   DashboardFooter,
@@ -17,6 +18,7 @@ export default async function DashboardPage() {
       <DashboardHeader serial={serial} />
       <BanksStrip />
       <PriceTicker />
+      <RetainedTokens />
       <BuybackWizard />
       <DashboardFooter />
     </main>

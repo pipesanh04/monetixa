@@ -62,11 +62,36 @@ export type Messages = {
     live: string;
     subtitle: string;
   };
+  retained: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    contract: string;
+    amountLabel: string;
+    selectHint: string;
+    selectedHint: string;
+    removeCta: string;
+  };
+  release: {
+    step: string;
+    title: string;
+    subtitle: string;
+    quotaLabel: string;
+    amountLabel: string;
+    amountHint: string;
+    belowQuota: string;
+    continue: string;
+    cancel: string;
+    missingToken: string;
+  };
   wizard: {
     eyebrow: string;
     title: string;
+    releaseEyebrow: string;
+    releaseTitle: string;
     steps: {
       token: string;
+      release: string;
       payout: string;
       destination: string;
       confirm: string;

@@ -42,6 +42,7 @@ UPDATE_FEED_URL=https://ejemplo.com/monetixa
 npm run dist:linux
 npm run dist:win
 # en Mac: npm run dist:mac
+# Alternativa Windows: GitHub Actions → Build Windows (NSIS + portable)
 
 # 3) Copia artefactos al feed local
 npm run updates:prepare
@@ -49,6 +50,12 @@ npm run updates:prepare
 # 4) Sube TODO el contenido de updates/ a Hostinger → public_html/monetixa/
 #    (Upload en el File Manager, o FTP/SFTP)
 ```
+
+### Windows vía GitHub Actions
+
+1. Actions → **Build Windows** → Run workflow (o `git push` de un tag `v*`).
+2. Descarga el artifact `monetixa-updates-*` (incluye `latest.yml` + Setup `.exe`).
+3. Súbelo a `public_html/monetixa/`.
 
 ## 3. Qué debe quedar en `public_html/monetixa/`
 

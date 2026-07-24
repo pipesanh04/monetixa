@@ -44,9 +44,27 @@ cd release
 ### Windows
 | Archivo | Uso |
 |---------|-----|
-| `Monetixa 0.1.0.exe` | Portable (no requiere instalador) |
+| `Monetixa 0.1.3.exe` | **Portable** — copia y ábrelo en Windows (sin instalador) |
+| `Monetixa Setup 0.1.3.exe` | **NSIS** — instalador con **auto-update** (requiere build con Wine o CI) |
 
-Copia el `.exe` a un PC Windows y ábrelo.
+```bash
+# Portable (funciona desde Linux sin Wine)
+npm run dist:win:portable
+
+# NSIS + portable (NSIS necesita Wine 32-bit o GitHub Actions)
+npm run dist:win
+```
+
+**Auto-update en Windows:** usa el instalador NSIS. Genera el Setup en GitHub Actions
+(`.github/workflows/build-windows.yml`) o en un PC Windows, luego:
+
+```bash
+npm run updates:prepare
+# Sube updates/ → public_html/monetixa/ (incluye latest.yml + Setup .exe)
+```
+
+Copia el `.exe` portable a un PC Windows y ábrelo.
+
 
 ### macOS
 El build de Mac **debe hacerse en un Mac**:
@@ -62,3 +80,12 @@ Quedará un `.dmg` / `.zip` en `release/`.
 Ver guía completa: [`UPDATES.md`](UPDATES.md)
 
 Resumen: sube `version` en `package.json` → `npm run dist:linux` / `dist:win` → `npm run updates:prepare` → sube `updates/` a tu servidor → configura `UPDATE_FEED_URL`.
+
+### GitHub Actions (Windows)
+
+Workflow: [`.github/workflows/build-windows.yml`](.github/workflows/build-windows.yml)
+
+1. Sube el código a `main` (incluye el workflow).
+2. **Manual:** GitHub → Actions → **Build Windows** → Run workflow.
+3. **Por tag:** `git tag v0.1.3 && git push origin v0.1.3` (crea Release con los `.exe`).
+4. Descarga artefactos o el Release → sube `updates/` a `public_html/monetixa/`.

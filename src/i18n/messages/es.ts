@@ -52,11 +52,38 @@ const es: Messages = {
     live: "Mercado en vivo",
     subtitle: "Precios CoinGecko · actualización periódica",
   },
+  retained: {
+    eyebrow: "Custodia",
+    title: "Tokens retenidos",
+    subtitle: "Volumen en retención institucional",
+    contract: "Contrato",
+    amountLabel: "Tiene {amount} retenidos",
+    selectHint: "Selecciona un token retenido para continuar.",
+    selectedHint:
+      "Para liberar {symbol} debes completar un cupo de {quota}.",
+    removeCta: "Quitar retención",
+  },
+  release: {
+    step: "Retención",
+    title: "Quitar retención",
+    subtitle:
+      "Para quitar la retención debes llenar un cupo de {quota} de {symbol}. El valor se calcula con el precio de mercado actual.",
+    quotaLabel: "Cupo requerido",
+    amountLabel: "Cantidad a aportar ({symbol})",
+    amountHint: "Mínimo requerido: {quota} {symbol}",
+    belowQuota: "Debes completar al menos {quota} {symbol}.",
+    continue: "Continuar al cobro",
+    cancel: "Volver al buyback",
+    missingToken: "No se encontró el token retenido. Vuelve a seleccionarlo.",
+  },
   wizard: {
     eyebrow: "Escritorio de buyback",
     title: "Monetizar tokens",
+    releaseEyebrow: "Liberación de retención",
+    releaseTitle: "Quitar retención",
     steps: {
       token: "Token",
+      release: "Cupo",
       payout: "Cobro",
       destination: "Wallet",
       confirm: "Confirmar",
