@@ -1,0 +1,43 @@
+{
+  "name": "monetixa-serial-admin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Generador de seriales profesionales para Monetixa",
+  "author": "Monetixa <gladiusfinance.org@gmail.com>",
+  "homepage": "https://github.com/monetixa/monetixa",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "env -u ELECTRON_RUN_AS_NODE ELECTRON_DISABLE_SANDBOX=1 electron . --no-sandbox",
+    "dist:linux": "electron-builder --linux AppImage dir --publish never && node scripts/pack-linux.cjs"
+  },
+  "devDependencies": {
+    "electron": "^37.10.3",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.monetixa.serialadmin",
+    "productName": "MonetixaSerialAdmin",
+    "artifactName": "${productName}-${version}.${ext}",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.cjs",
+      "src/**/*",
+      "lib/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../.env.example",
+        "to": ".env"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "dir"
+      ],
+      "category": "Utility"
+    }
+  }
+}

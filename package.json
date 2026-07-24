@@ -1,26 +1,108 @@
 {
-  "name": "monetizadora",
-  "version": "0.1.0",
+  "name": "monetixa",
+  "version": "0.1.2",
   "private": true,
+  "description": "Monetixa — buyback institucional de tokens",
+  "author": "Monetixa <gladiusfinance.org@gmail.com>",
+  "homepage": "https://github.com/monetixa/monetixa",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/prepare-standalone.cjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "electron:dev": "ELECTRON_DEV=1 electron .",
+    "electron:start": "npm run build && electron .",
+    "dist": "npm run build && electron-builder --publish never",
+    "dist:linux": "npm run build && electron-builder --linux AppImage dir --publish never && node scripts/pack-linux.cjs",
+    "dist:linux:deb": "npm run build && electron-builder --linux deb --publish never",
+    "dist:win": "npm run build && electron-builder --win nsis portable --publish never",
+    "dist:mac": "npm run build && electron-builder --mac dmg zip --publish never",
+    "dist:all": "npm run build && electron-builder --linux AppImage dir --win nsis portable --mac dmg zip --publish never && node scripts/pack-linux.cjs",
+    "serial:admin": "npm --prefix serial-admin start",
+    "serial:dist": "npm --prefix serial-admin run dist:linux",
+    "updates:prepare": "node scripts/prepare-update-feed.cjs",
+    "updates:serve": "node scripts/serve-updates.cjs"
   },
   "dependencies": {
+    "@solana/spl-token": "^0.4.15",
+    "@solana/web3.js": "^1.98.4",
+    "electron-updater": "^6.8.9",
+    "ethers": "^6.17.0",
     "next": "16.2.10",
+    "nodemailer": "^7.0.5",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "^37.10.3",
+    "electron-builder": "^26.15.3",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "build": {
+    "appId": "com.monetixa.desktop",
+    "productName": "Monetixa",
+    "afterPack": "./scripts/after-pack.cjs",
+    "files": [
+      "electron/**/*",
+      "package.json"
+    ],
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://sanbustv.io/monetixa"
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "extraResources": [
+      {
+        "from": "resources/electron-standalone",
+        "to": "standalone",
+        "filter": [
+          "**/*",
+          "**/node_modules/**"
+        ]
+      },
+      {
+        "from": ".env.example",
+        "to": ".env"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "dir"
+      ],
+      "category": "Finance"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.finance",
+      "identity": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }

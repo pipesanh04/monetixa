@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    />
+    <title>Monetixa Serial Admin</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">Herramienta interna</p>
+        <h1>Monetixa Serial Admin</h1>
+        <p class="sub">
+          Genera seriales profesionales firmados que Monetixa acepta con el mismo
+          <code>SERIAL_SECRET</code>.
+        </p>
+      </header>
+
+      <section class="panel">
+        <div class="grid">
+          <label>
+            Cantidad
+            <input id="count" type="number" min="1" max="100" value="5" />
+          </label>
+          <label>
+            Plan / tipo
+            <select id="plan">
+              <option value="PRO">PRO</option>
+              <option value="STD">STD</option>
+              <option value="VIP">VIP</option>
+              <option value="ENT">ENT</option>
+            </select>
+          </label>
+          <label class="span-2">
+            Nota (opcional)
+            <input id="note" type="text" placeholder="Cliente / lote / campaña" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="generate" class="primary" type="button">
+            Generar seriales
+          </button>
+          <button id="copy" type="button">Copiar todos</button>
+          <button id="export" type="button">Exportar .txt</button>
+          <button id="save" type="button">Guardar en registro Monetixa</button>
+        </div>
+
+        <p id="status" class="status"></p>
+
+        <div class="output-wrap">
+          <div class="output-head">
+            <span>Seriales generados</span>
+            <span id="countLabel">0</span>
+          </div>
+          <textarea id="output" readonly placeholder="Los seriales aparecerán aquí…"></textarea>
+        </div>
+
+        <p class="hint">
+          Formato: <code>MBX-PRO-XXXX-XXXX-CCCC</code> · CCCC es checksum con
+          <code>SERIAL_SECRET</code>. Monetixa valida automáticamente sin pegarlos
+          en VALID_SERIALS.
+        </p>
+      </section>
+    </main>
+    <script src="renderer.js"></script>
+  </body>
+</html>

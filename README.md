@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Monetixa — Buyback de tokens (escritorio)
 
-## Getting Started
+App de buyback/canje en **Ethereum**, **BNB Chain** y **Solana**. Pensada como **ejecutable de escritorio** (Windows, Linux, Mac) con Electron. Precios de mercado + **boost promocional configurable** (inicial +20%).
 
-First, run the development server:
+## Desarrollo (navegador local)
 
 ```bash
+cp .env.example .env.local
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Seriales demo: `DEMO-SERIAL-2026`, `MBX-ALPHA-001`, `MBX-BETA-002`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Ejecutable de escritorio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Instalar deps (incluye Electron)
+npm install
 
-## Learn More
+# Probar ventana de escritorio (requiere `npm run build` previo, o en paralelo `npm run dev` + electron:dev)
+npm run electron:start
 
-To learn more about Next.js, take a look at the following resources:
+# Empaquetar instaladores
+npm run dist          # según tu SO
+npm run dist:linux    # AppImage + deb
+npm run dist:win      # NSIS
+npm run dist:mac      # DMG
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Los artefactos quedan en `release/`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+En escritorio **no se abre por un link público**: Electron levanta un servidor local interno (`127.0.0.1`) solo dentro de la ventana.
 
-## Deploy on Vercel
+## Boost promocional (+20%)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+En `.env.local`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+NEXT_PUBLIC_PROMO_BOOST=0.20
+```
+
+La UI muestra valor de mercado y pago promocional por separado. Cambia el valor cuando ajustes porcentajes.
+
+## Añadir tokens
+
+Edita [`src/lib/tokens.ts`](src/lib/tokens.ts).
+
+## Treasury
+
+```
+TREASURY_ETH=0x...
+TREASURY_BSC=0x...
+TREASURY_SOL=...
+```
+
+Si están vacías, el flujo usa modo demo (sin on-chain).

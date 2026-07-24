@@ -1,0 +1,20 @@
+# Servir el feed de updates como archivos estáticos (Hostinger / Apache)
+Options -Indexes
+<IfModule mod_rewrite.c>
+  RewriteEngine Off
+</IfModule>
+
+# Tipos MIME útiles
+<IfModule mod_mime.c>
+  AddType application/octet-stream .AppImage
+  AddType application/octet-stream .exe
+  AddType text/yaml .yml
+  AddType application/json .json
+</IfModule>
+
+# Evitar que PHP intercepte estos archivos
+<FilesMatch "\.(yml|yaml|AppImage|exe|blockmap|zip|dmg)$">
+  <IfModule mod_authz_core.c>
+    Require all granted
+  </IfModule>
+</FilesMatch>

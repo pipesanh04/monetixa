@@ -17,6 +17,14 @@
 /.next/
 /out/
 
+# electron
+/release/
+/dist/
+/updates/
+/resources/electron-standalone/
+/serial-admin/release/
+/serial-admin/node_modules/
+
 # production
 /build
 
@@ -32,6 +40,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# local runtime data
+/data/
 
 # vercel
 .vercel
