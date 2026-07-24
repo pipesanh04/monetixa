@@ -28,6 +28,7 @@ const zh: Messages = {
     session: "会话：",
     footer: "参考价格来自 CoinGecko。用户付款在 treasury 清算后执行。",
     logout: "退出登录",
+    version: "版本",
   },
   banks: {
     eyebrow: "机构市场",

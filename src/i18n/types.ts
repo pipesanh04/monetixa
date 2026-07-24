@@ -41,6 +41,7 @@ export type Messages = {
     session: string;
     footer: string;
     logout: string;
+    version: string;
   };
   banks: {
     eyebrow: string;

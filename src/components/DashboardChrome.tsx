@@ -2,6 +2,7 @@
 
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LogoutButton } from "@/components/LogoutButton";
+import { AppVersion } from "@/components/AppVersion";
 import { useLocale } from "@/i18n/LocaleProvider";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Monetixa";
@@ -22,6 +23,9 @@ export function DashboardHeader({ serial }: { serial: string }) {
           {t.dashboard.session}{" "}
           <span className="text-[var(--ink)]">{serial}</span>
         </p>
+        <div className="mt-3">
+          <AppVersion />
+        </div>
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <LanguageSwitcher compact />
@@ -35,8 +39,9 @@ export function DashboardFooter() {
   const { t } = useLocale();
 
   return (
-    <footer className="pb-6 text-center text-xs text-[var(--muted)]">
-      {t.dashboard.footer}
+    <footer className="flex flex-col items-center gap-2 pb-6 text-center text-xs text-[var(--muted)]">
+      <AppVersion compact />
+      <p>{t.dashboard.footer}</p>
     </footer>
   );
 }

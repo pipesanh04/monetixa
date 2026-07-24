@@ -31,6 +31,7 @@ const en: Messages = {
     footer:
       "Reference prices via CoinGecko. User payout is executed after treasury settlement.",
     logout: "Sign out",
+    version: "Version",
   },
   banks: {
     eyebrow: "Institutional market",

@@ -31,6 +31,7 @@ const fr: Messages = {
     footer:
       "Prix de référence via CoinGecko. Le paiement utilisateur s'exécute après le règlement en treasury.",
     logout: "Déconnexion",
+    version: "Version",
   },
   banks: {
     eyebrow: "Marché institutionnel",

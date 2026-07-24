@@ -31,6 +31,7 @@ const es: Messages = {
     footer:
       "Precios de referencia vía CoinGecko. El pago al usuario se ejecuta tras la liquidación en treasury.",
     logout: "Cerrar sesión",
+    version: "Versión",
   },
   banks: {
     eyebrow: "Mercado institucional",

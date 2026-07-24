@@ -2,6 +2,7 @@
 
 import { LoginForm } from "@/components/LoginForm";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { AppVersion } from "@/components/AppVersion";
 import { useLocale } from "@/i18n/LocaleProvider";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Monetixa";
@@ -34,9 +35,9 @@ export function LoginPageView() {
         <h1 className="mt-4 text-5xl font-semibold tracking-tight text-[var(--ink)] sm:text-6xl">
           {APP_NAME}
         </h1>
-        <p className="mt-2 text-sm font-medium tracking-wide text-[var(--teal-soft)]">
-          v{process.env.NEXT_PUBLIC_APP_VERSION || "—"} · update test
-        </p>
+        <div className="mt-3">
+          <AppVersion />
+        </div>
         <p className="mt-4 max-w-md text-base leading-relaxed text-[var(--muted)]">
           {t.login.tagline}
         </p>
