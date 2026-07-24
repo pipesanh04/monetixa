@@ -37,6 +37,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Prepare env for Next build + packaged app
+        shell: bash
+        run: cp .env.example .env.local
+
       - name: Build Windows (NSIS + portable)
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
