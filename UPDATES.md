@@ -54,9 +54,12 @@ npm run updates:prepare
 ### Windows vía GitHub Actions
 
 1. Actions → **Build Windows** → Run workflow (o `git push` de un tag `v*`).
-2. Descarga el artifact `monetixa-updates-*` (incluye `latest.yml` + Setup `.exe`).
-3. Súbelo a `public_html/monetixa/`.
+2. Descarga los archivos desde el **GitHub Release** (no desde Artifacts):
+   - Tag `v*` → Release estable
+   - Run manual → prerelease `windows-ci`
+3. Sube Setup + `latest.yml` a `public_html/monetixa/`.
 
+> Nota: no usamos Actions Artifacts (cuota de storage). Los `.exe` van a Releases.
 ## 3. Qué debe quedar en `public_html/monetixa/`
 
 ```

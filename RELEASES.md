@@ -86,6 +86,8 @@ Resumen: sube `version` en `package.json` → `npm run dist:linux` / `dist:win` 
 Workflow: [`.github/workflows/build-windows.yml`](.github/workflows/build-windows.yml)
 
 1. Sube el código a `main` (incluye el workflow).
-2. **Manual:** GitHub → Actions → **Build Windows** → Run workflow.
-3. **Por tag:** `git tag v0.1.3 && git push origin v0.1.3` (crea Release con los `.exe`).
-4. Descarga artefactos o el Release → sube `updates/` a `public_html/monetixa/`.
+2. **Manual:** GitHub → Actions → **Build Windows** → Run workflow → descarga desde Release prerelease `windows-ci`.
+3. **Por tag:** `git tag v0.1.4 && git push origin v0.1.4` (crea Release estable con los `.exe`).
+4. Sube Setup + `latest.yml` a `public_html/monetixa/`.
+
+> Los instaladores se publican en **GitHub Releases** (no Artifacts) para no consumir la cuota de storage de Actions.
